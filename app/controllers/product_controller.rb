@@ -1,4 +1,9 @@
 class ProductController < ApplicationController
+  require 'rubygems'
+  require 'selenium-webdriver'
+  require 'nokogiri'
+  require 'open-uri'
+
   def index
   end
 
@@ -10,9 +15,7 @@ class ProductController < ApplicationController
 
   def parse
 
-    require 'selenium-webdriver'
-    require 'nokogiri'
-    require 'open-uri'
+
 
     driver = Selenium::WebDriver.for :firefox
     driver.manage.window.maximize
@@ -43,4 +46,30 @@ class ProductController < ApplicationController
     driver.quit
 
   end
+
+  def circle_parse
+
+    driver = Selenium::WebDriver.for :firefox
+    driver.manage.window.maximize
+    driver.get 'http://faceit-team.com/'
+
+    #driver.find_element(:xpath, '/html/body/div/div/header/div/ul/li[5]/a').click
+    #driver.find_element(:xpath, '/html/body/div/div/div[2]/div/ul/li[3]/a').click         #ruby on rails
+
+    #int numberOfElementsFound = getNumberOfElementsFound(locator);
+    #for (int pos = 0; pos < numberOfElementsFound; pos++) {
+    #    getElementWithIndex(locator, pos).click();
+    #}
+
+    doc = Nokogiri::HTML(driver.page_source)
+    driver.find_elements(:tag_name, "a").each {|link| link.click }
+    #links = driver.find_elements(:tag_name, 'a').count
+    #links.each do |l|
+    #  l.click
+    #end
+
+    render :parse
+
+  end
+
 end

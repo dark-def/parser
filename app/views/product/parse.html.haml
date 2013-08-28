@@ -1,7 +1,12 @@
--@images.each do |img|
-  =image_tag img
-= @images
-#left
-  != @post
-#right
-  != @post2
+-if !@images.blank?
+  -@images.each do |img|
+    =image_tag img
+  = @images
+
+-if !@post.blank?
+  #left
+    != @post
+
+-if !@post2.blank?
+  #right
+    != @post2
