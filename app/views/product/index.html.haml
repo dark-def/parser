@@ -6,4 +6,16 @@
 %p
   = link_to 'цикломхуиклом', circle_parse_path
   %br
-  = link_to 'football', football_path, :remote => true
+  = link_to 'football', football_path
+
+#left
+
+
+#right
+  -@posts.each do |p|
+    %blockquote
+      %h4
+        = p.title
+      = p.body
+
+  =link_to 'get_post', get_post_path

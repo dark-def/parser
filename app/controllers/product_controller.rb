@@ -5,6 +5,7 @@ class ProductController < ApplicationController
   require 'open-uri'
 
   def index
+    @posts = Post.all
   end
 
   def show
@@ -53,7 +54,7 @@ class ProductController < ApplicationController
 
     driver = Selenium::WebDriver.for :firefox
     driver.manage.window.maximize
-    driver.get 'http://faceit-team.com/'
+    #driver.get 'http://faceit-team.com/'
 
     #driver.find_element(:xpath, '/html/body/div/div/header/div/ul/li[5]/a').click
     #driver.find_element(:xpath, '/html/body/div/div/div[2]/div/ul/li[3]/a').click         #ruby on rails
@@ -62,9 +63,18 @@ class ProductController < ApplicationController
     #for (int pos = 0; pos < numberOfElementsFound; pos++) {
     #    getElementWithIndex(locator, pos).click();
     #}
+    driver.get "http://faceit-team.com/"
+    link = driver.find_elements(:tag_name, "a")
+    link.each do |a|
+      links = driver.find_elements(:tag_name, "a")
+      links.each {|link| link.click }
+      #a = driver.execute_script("var d=document,a=d.createElement('a');a.target='_blank';a.href=arguments[0];a.innerHTML='.';d.body.appendChild(a);return a", a)
+      #a.click
+    end
 
-    doc = Nokogiri::HTML(driver.page_source)
-    driver.find_elements(:tag_name, "a").each {|link| link.click }
+
+    #doc = Nokogiri::HTML(driver.page_source)
+    #driver.find_elements(:tag_name, "a").each {|link| link.click }
     #links = driver.find_elements(:tag_name, 'a').count
     #links.each do |l|
     #  l.click
@@ -78,20 +88,19 @@ class ProductController < ApplicationController
 
     #matchesTable openMatch
     driver = Selenium::WebDriver.for :firefox
-    driver.manage.window.maximize
     driver.get 'http://soccerfame.ru/'
+    driver2 = Selenium::WebDriver.for :firefox
+    driver2.get 'http://soccer365.ru/'
 
     doc = Nokogiri::HTML(driver.page_source)
-    @team = Array.new
-    doc.css('league openLeague').each_with_index do |item, index|
-       @team[index] = item['content']
-    end
+    @team = doc.xpath('/html/body/div/div[5]/div/div[3]/div')
+    #@team = Array.new
+    #doc.css('openLeague').each_with_index do |item, index|
+    #  @team[index] = item['content']
+    #end
 
     driver.quit
-
-    respond_to do |format|
-      format.js {}
-    end
+    driver2.quit
 
   end
 
