@@ -15,8 +15,6 @@ class ProductController < ApplicationController
 
   def parse
 
-
-
     driver = Selenium::WebDriver.for :firefox
     driver.manage.window.maximize
     driver.get 'http://faceit-team.com/'
@@ -45,6 +43,10 @@ class ProductController < ApplicationController
 
     driver.quit
 
+    respond_to do |format|
+      format.js  {}
+    end
+
   end
 
   def circle_parse
@@ -69,6 +71,27 @@ class ProductController < ApplicationController
     #end
 
     render :parse
+
+  end
+
+  def football
+
+    #matchesTable openMatch
+    driver = Selenium::WebDriver.for :firefox
+    driver.manage.window.maximize
+    driver.get 'http://soccerfame.ru/'
+
+    doc = Nokogiri::HTML(driver.page_source)
+    @team = Array.new
+    doc.css('league openLeague').each_with_index do |item, index|
+       @team[index] = item['content']
+    end
+
+    driver.quit
+
+    respond_to do |format|
+      format.js {}
+    end
 
   end
 

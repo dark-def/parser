@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/SBS-team/rails_team_logo
+  revision: 4a0c88fed525916cd2b77aed352262c88b9b9885
+  specs:
+    rails_team_logo (1.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -150,6 +156,7 @@ DEPENDENCIES
   pg
   puma
   rails (= 4.0.0)
+  rails_team_logo!
   sass-rails (~> 4.0.0)
   sdoc
   selenium-webdriver

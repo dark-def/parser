@@ -6,6 +6,7 @@ gem 'haml'
 gem 'pg'
 gem 'curb'
 gem 'annotate', '>=2.5.0'
+gem 'rails_team_logo', :git => 'https://github.com/SBS-team/rails_team_logo'
 
 group :development, :test do
   gem 'better_errors'
